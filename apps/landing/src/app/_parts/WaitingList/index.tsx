@@ -64,9 +64,9 @@ const WaitingList = () => {
         <form className="flex flex-col" onSubmit={onSubmit}>
           <div className="flex items-center justify-center gap-2.5 h-full">
             <div className="relative w-full h-full  rounded-lg ">
-              <div className="absolute w-full h-full backdrop-blur-sm rounded-lg pointer-events-none" />
+              <div className="absolute w-full h-full backdrop-blur-xs rounded-lg pointer-events-none" />
               <input
-                className="relative h-full w-full px-4 py-2 bg-transparent text-gray-300 placeholder-gray-500 border-none rounded-md  outline-none shadow-primary-500 shadow-inner"
+                className="relative h-full w-full px-4 py-2 bg-transparent text-gray-300 placeholder-gray-500 border-none rounded-md  outline-hidden shadow-primary-500 shadow-inner"
                 placeholder="Enter your email address"
                 type="email"
                 value={email}
