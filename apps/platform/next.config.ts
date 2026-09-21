@@ -17,13 +17,11 @@ const nextConfig: NextConfig = {
     includePaths: [join(__dirname, "src")],
     prependData: "@use 'src/sass' as *;",
   },
-  experimental: {
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
-        },
+  turbopack: {
+    rules: {
+      "*.svg": {
+        loaders: ["@svgr/webpack"],
+        as: "*.js",
       },
     },
   },
