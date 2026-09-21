@@ -89,8 +89,15 @@ export const CustomMDX = (props: MDXRemoteProps) => (
         ),
       }}
       options={{
+        ...props.options,
         parseFrontmatter: true,
-        mdxOptions: { rehypePlugins: [rehypeSlug] },
+        mdxOptions: {
+          ...props.options?.mdxOptions,
+          rehypePlugins: [
+            ...(props.options?.mdxOptions?.rehypePlugins ?? []),
+            rehypeSlug,
+          ],
+        },
       }}
     />
   </div>
