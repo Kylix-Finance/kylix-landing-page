@@ -36,7 +36,7 @@ const Header = () => {
           <div className="lg:hidden w-full flex justify-end">
             <button
               aria-label="Toggle navigation menu"
-              className="text-white focus:outline-none"
+              className="text-white focus:outline-hidden"
               onClick={toggleMenu}
             >
               {isOpen ? (
@@ -63,7 +63,7 @@ const Header = () => {
         {isOpen && (
           <motion.nav
             animate={{ opacity: 1, y: 0 }}
-            className="lg:hidden bg-secondary-900/70 bg-opacity-90 flex flex-col fixed w-screen h-screen text-white top-0 left-0 z-[400]"
+            className="lg:hidden bg-secondary-900/70 flex flex-col fixed w-screen h-screen text-white top-0 left-0 z-[400]"
             exit={{ opacity: 0, y: "-100%" }}
             initial={{ opacity: 0, y: "-100%" }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
