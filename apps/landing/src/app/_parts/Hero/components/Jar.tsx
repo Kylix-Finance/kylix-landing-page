@@ -1,7 +1,8 @@
 "use client";
 
 import { useGLTF } from "@react-three/drei";
-import { motion } from "framer-motion-3d";
+import { useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 import * as THREE from "three";
 import { MotionValue, useSpring, useTransform } from "framer-motion";
 interface Props {
@@ -19,6 +20,7 @@ const rotationRange: inputRange = [
 
 const Jar = ({ scrollYProgress }: Props) => {
   const { nodes } = useGLTF("/jar.glb");
+  const groupRef = useRef<THREE.Group>(null);
 
   const rotation = useTransform(scrollYProgress, ...rotationRange);
   const sRotation = useSpring(rotation, {
@@ -42,21 +44,24 @@ const Jar = ({ scrollYProgress }: Props) => {
     mass: 1,
   });
 
+  // Springs update outside React renders, so copy them onto the group every frame.
+  useFrame(() => {
+    const group = groupRef.current;
+    if (!group) return;
+    group.position.y = sPosition.get();
+    group.rotation.x = sRotation.get();
+    group.scale.setScalar(sScale.get());
+  });
+
   return (
-    <motion.group
-      dispose={null}
-      position-y={sPosition}
-      rotation-x={sRotation}
-      rotation-y={-0.04}
-      scale={sScale}
-    >
-      <motion.group name="Mesh_0">
+    <group dispose={null} ref={groupRef} rotation-y={-0.04}>
+      <group name="Mesh_0">
         {Object.entries(nodes).map(([name, node]) => {
           if (node instanceof THREE.Mesh) {
             const material = node.material as THREE.MeshStandardMaterial;
 
             return (
-              <motion.mesh key={name} geometry={node.geometry} name={name}>
+              <mesh key={name} geometry={node.geometry} name={name}>
                 <meshStandardMaterial
                   color={material.color}
                   emissive={material.emissive}
@@ -67,13 +72,13 @@ const Jar = ({ scrollYProgress }: Props) => {
                   roughness={0.1}
                   transparent={material.transparent}
                 />
-              </motion.mesh>
+              </mesh>
             );
           }
           return null;
         })}
-      </motion.group>
-    </motion.group>
+      </group>
+    </group>
   );
 };
 

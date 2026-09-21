@@ -4,7 +4,7 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import Jar from "./Jar";
 import { Suspense } from "react";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import { MotionCanvas } from "framer-motion-3d";
+import { Canvas } from "@react-three/fiber";
 import { MotionValue } from "framer-motion";
 
 // import * as THREE from "three";
@@ -19,7 +19,7 @@ interface Props {
 
 const Scene = ({ scrollYProgress }: Props) => {
   return (
-    <MotionCanvas shadows dpr={[1, 2]} style={{ height: "100vh" }}>
+    <Canvas shadows dpr={[1, 2]} style={{ height: "100vh" }}>
       <Camera />
 
       <OrbitControls
@@ -37,7 +37,7 @@ const Scene = ({ scrollYProgress }: Props) => {
 
         <Environment preset="warehouse" />
       </Suspense>
-    </MotionCanvas>
+    </Canvas>
   );
 };
 
