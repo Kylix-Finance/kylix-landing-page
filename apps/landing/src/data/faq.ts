@@ -8,17 +8,17 @@ export const faqData: FAQSectionProps[] = [
       {
         title: "What is Kylix?",
         description:
-          "Kylix Finance is a new multi-chain Lending platform, designed to manage over-collateralized loans, handling and aggregating liquidity from external chains without the need of using bridges.\n\nUsing a Hub&Spoke architecture, Kylix acts as a liquidity hub for cross-chain operations, registering and managing settlements of cross-chain assets. Everything is recorded on the Kylix blockchain, which functions as a multi-chain ledger.",
+          "Kylix Finance is a lending protocol built natively on Polkadot Hub, designed to manage over-collateralized loans with best-in-class capital efficiency.\n\nKylix combines self-repaying loans, a polynomial interest rate model, and a queue-based liquidation marketplace to maximize returns for lenders and minimize risk for the protocol. Everything is recorded natively on Polkadot Hub.",
       },
       {
-        title: "Multi chain approach, how is this going to be executed?",
+        title: "Why build on Polkadot Hub?",
         description:
-          "The multi-chain approach is implemented by registering the virtual settlement of cross-chain transactions on a common ledger at Kylix blockchain, without the need of moving liquidity across chains.\n\nKylix acts as a main liquidity hub for multiple blockchain networks, analogous to the role of a clearing house for financial settlements in traditional finance. Using a hub-and-spoke architecture, Kylix aggregates settlements and maintains status information for cross-chain assets, permissionless ERC-20 tokens, and communicates with external chains with the help of smart contract vaults called **Spokes**.\n\nThis approach provides the users with a unified interface for cross-chain financial operations, meanwhile the platform enables compounded liquidity management, improving capital efficiency across blockchain ecosystems.",
+          "Polkadot Hub gives Kylix a secure, scalable foundation with native smart contract support, without the operational overhead of running and securing a separate chain.\n\nBuilding natively on Polkadot Hub lets Kylix focus entirely on capital efficiency and risk management, instead of on cross-chain infrastructure.",
       },
       {
         title: "Which problems are you trying to solve?",
         description:
-          "1. The fundamental problem in today's cross-chain ecosystem isn't the lack of bridges or liquidity—it's the absence of intelligent aggregation and optimization. Users typically face issues like high slippage, complex processes, significant waiting times, and inefficient pricing due to fragmented liquidity.\n\n2. DeFi platforms face challenges like liquidity fragmentation, shortages, and inefficient collateral liquidation systems. These issues affect users' ability to access and trade assets effectively.",
+          "The fundamental problem in today's DeFi lending ecosystem isn't the lack of protocols—it's the absence of capital efficiency and intelligent risk management. Users typically face static interest rate models, idle collateral, and inefficient liquidation processes that destroy value.\n\nDeFi lending platforms also face challenges like inefficient collateral liquidation systems and a lack of incentive mechanisms to bootstrap and maintain stable liquidity.",
       },
     ],
   },
@@ -26,9 +26,9 @@ export const faqData: FAQSectionProps[] = [
     heading: "The Protocol",
     data: [
       {
-        title: "Which chains are supported by Kylix?",
+        title: "Which assets are supported by Kylix?",
         description:
-          "The Kylix platform has the potential to integrate all chains supported by the cross-messaging protocols used by the Kylix Hub (XCM, Wormhole, and Equito Network), totaling 25 potential blockchain networks. Initially, we will focus on supporting Polkadot and Solana, with plans to expand to Ethereum, SUI, SEI, and MintLayer.",
+          "Kylix initially supports DOT, USDC and USDT natively on Polkadot Hub (asset list to be confirmed before launch). The selection of supported assets is based on business decision, oracle availability and market preference.",
       },
       {
         title: "How are liquidations executed?",
@@ -48,7 +48,7 @@ export const faqData: FAQSectionProps[] = [
       {
         title: "How is Kylix legally incorporated?",
         description:
-          "Kylix Finance is registered as a Foundation to fulfill regulations, with the name Kylix Labs LLC, in San Vincent, Caribbean Island. This legal configuration allows us to issue the Kylix native utility token.",
+          "Kylix Finance is registered as a Foundation to fulfill regulations, with the name Kylix Labs LLC, in Saint Vincent and the Grenadines. This legal configuration allows us to issue the Kylix native utility token.",
       },
       {
         title: "Will Kylix be audited before launch?",
@@ -69,11 +69,6 @@ export const faqData: FAQSectionProps[] = [
         title: "How do users get the token to use the network?",
         description:
           "Participants in the Polimec Round can acquire KLX tokens through a private sale. The network also provides a public faucet offering minimal KLX tokens to cover transaction fees.",
-      },
-      {
-        title: "Which assets and chains are supported?",
-        description:
-          "We will support Polkadot and Solana initially. Other chains, including Ethereum, SUI, SEI, and MintLayer, will follow based on business decisions, oracle availability, and market preference.",
       },
       {
         title: "Can I contact you?",

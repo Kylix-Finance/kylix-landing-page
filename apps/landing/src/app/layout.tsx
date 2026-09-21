@@ -13,7 +13,7 @@ export const metadata: Metadata = mergeMetadata(
       template: "%s | Kylix Finance",
     },
     description:
-      "A new-gen multi-chain Lending platform for managing over-collateralized loans & aggregating cross-chain Liquidity.",
+      "Kylix is a lending protocol built natively on Polkadot Hub, managing over-collateralized loans with best-in-class capital efficiency.",
   },
   "Kylix Finance"
 );

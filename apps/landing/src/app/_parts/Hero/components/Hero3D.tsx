@@ -95,15 +95,16 @@ const Hero3D = () => {
           >
             <h2 className="flex flex-col sm:flex-row justify-center items-center gap-2.5 font-bold font-heading w-full h-full text-4xl md:text-5xl lg:text-6xl">
               <span className="text-primary-500">
-                Multi-chain&nbsp; Lending.
+                Native Polkadot&nbsp; Lending.
               </span>
               <span className="text-white"> &nbsp;Evolved.</span>
             </h2>
             <p className="font-light text-xs md:text-sm lg:text-base leading-6 text-secondary-100 text-center ">
               <b>
-                Borrow, lend and earn seamlessly across multiple networks.{" "}
+                Borrow, lend and earn with best-in-class capital efficiency.{" "}
                 <br />
-                Kylix Finance, the new multi-chain lending platform.
+                Kylix Finance, the lending protocol built natively for
+                Polkadot Hub.
               </b>
               <br />
               <br />
@@ -141,15 +142,14 @@ const Hero3D = () => {
             }}
           >
             <h2 className="flex flex-col sm:flex-row justify-center items-center gap-2.5 font-bold font-heading w-full h-full text-4xl md:text-5xl lg:text-6xl">
-              <span className="text-primary-500">Bridge-LESS&nbsp;</span>
+              <span className="text-primary-500">Capital-Efficient&nbsp;</span>
               <span className="text-white"> Lending</span>
             </h2>
             <p className="font-light text-xs md:text-sm lg:text-base leading-6 text-secondary-100 text-center ">
               <b>
-                Kylix enables cross-chain lending between Solana, Ethereum,
-                Polkadot and more. <br />
-                Operate across all the biggest Web3 ecosystems, beyond any
-                chains.
+                Self-repaying loans and polynomial interest rates, built
+                natively for Polkadot Hub. <br />
+                Lend and borrow without compromises.
               </b>
               <br />
               <br />

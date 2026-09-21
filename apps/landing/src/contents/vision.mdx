@@ -3,65 +3,52 @@ title: "Vision"
 description: "Why Kylix?"
 ---
 
-# Empowering DeFi Through Advanced Cross-chain Integration
+# Empowering DeFi Through Capital-Efficient Lending
 
-Our mission is to revolutionize decentralized finance through seamless multi-chain liquidity aggregation.
+Our mission is to build the most capital-efficient lending protocol native to Polkadot Hub.
 
-In 2024, the DeFi landscape faces a critical challenge: While the total value locked across various blockchains has grown exponentially, the ability to move assets efficiently between these chains remains fragmented and complex. Users often find themselves navigating through multiple bridges, dealing with significant slippage, or reluctantly turning to centralized exchanges. The need for a unified, efficient cross-chain solution has never been more apparent.
+In 2024, the DeFi landscape faces a critical challenge: existing lending protocols often leave capital idle, rely on static interest rate models that fail to respond to real market conditions, and expose borrowers to inefficient liquidation processes that destroy value for both borrowers and the protocol.
 
-## The Current State of Cross-Chain DeFi
+## The Current State of DeFi Lending
 
-The fundamental problem in today's cross-chain ecosystem isn't the lack of bridges or liquidity—it's the absence of intelligent aggregation and optimization. When a user wants to interact between different blockchains, they typically face:
+The fundamental problem in today's lending ecosystem isn't the lack of protocols—it's the absence of capital efficiency and intelligent risk management. When a user wants to lend or borrow, they typically face:
 
-- High slippage due to fragmented liquidity
-- Complex multi-step processes
-- Significant waiting times for bridge transfers
-- Limited options for exotic token
-- Inefficient pricing due to segregated markets
-- Forced to wrap assets due to impossibility to move native assets across chains.
-- Liquidity Fragmentation, Liquidity Shortages and illiquidity situations.
+- Static interest rate models that don't respond to market utilization
+- Idle collateral that generates no yield while securing a loan
+- Inefficient liquidation processes that destroy value for both borrowers and lenders
+- Limited options for exotic tokens
+- Loan pools that lack adequate incentive mechanisms to bootstrap and maintain stable liquidity
 
-While existing solutions have made progress, none have successfully combined deep liquidity, optimal routing, and seamless user experience into a single, powerful platform.
+While existing solutions have made progress, none have successfully combined deep liquidity, optimal capital efficiency, and a seamless user experience into a single, powerful platform.
 
 ## The Kylix Solution
 
-Kylix Finance is a L1 blockchain that introduces a revolutionary approach to cross-chain liquidity aggregation through our Hub&Spoke architecture. By leveraging:
+Kylix Finance is a lending protocol built natively on Polkadot Hub, designed around capital efficiency and intelligent risk management. Our protocol enables:
 
-- The multi-chain approach is implemented by handling the settlement of cross-chain transactions without the need of moving liquidity between chains using bridges, but registering the transactions on a common ledger at Kylix blockchain.
-- Being a network of networks that abstract settlements and the lending logic on our hub chain, like a centralized exchange but on a decentralised network!
-- Kylix acts as a main liquidity hub for multiple blockchain networks, analogous to the role of a clearing house for financial settlements in traditional finance.
-- Using a hub-and-spoke architecture, Kylix aggregates settlements and maintains status information for cross-chain assets, permissionless ERC-20 tokens, and communicates with external chains with the help of smart contract vaults called Spokes.
-- This approach provides the users with a unified interface for cross-chain financial operations, meanwhile the platform enables compounded liquidity management, improving capital efficiency across blockchain ecosystems.
+- Self-repaying loans, where deposited collateral is converted into an interest-bearing asset that automatically covers the debt position
+- A polynomial interest rate model that incentivizes liquidity providers even when market utilization is low
+- A queue-based liquidation marketplace, where liquidated collateral is made available to the community through a fair bidding process
+- Collateral scoring and loan pools designed for capital efficiency
 
-All protocol logic and state updates are handled by the hub chain, making it the coordinating point and ledger for all transactions.
+## Beyond Simple Lending
 
-Spoke chains are nodes with smart contract logic, deployed on each single supported chain, that act as entry points for users interacting with Kylix Finance.
+Kylix Finance is not just another lending pool - it's a comprehensive, capital-efficient lending infrastructure. Our protocol enables:
 
-They connect the chains to the central hub chain using well supported cross chain message protocols like Wormhole, Equito and XCM. Unlike the hub chain, spoke chains do not store state related to lending functionalities. They only store state related to communication with the hub chain, simplifying the overall architecture and reducing the risk of inconsistencies.
-
-## Beyond Simple Bridging
-
-Kylix Finance is not just another bridge or aggregator - it's a comprehensive cross-chain lending infrastructure. Our protocol enables:
-
-- The Kylix protocol automatically sources liquidity from all supported chains.
-- Abstract lending logic to enable complex lending products with native cross-chain tokens.
-- Allow users to act as lenders, borrowers or liquidators with native cross-chain assets.
-- Automated cross-chain arbitrage opportunities with the liquidator marketplace.
+- Users to act as lenders, borrowers or liquidators
+- Automated collection of protocol fees on every borrow and liquidation
 - Self-repaying loans for the enjoyment of negative interest loans
-- Collateral scoring and loan pools with new-generation design interest rates.
+- Collateral scoring and loan pools with new-generation interest rate design
 
 ## The Road Ahead
 
-The future of DeFi is multi-chain, and Kylix Finance is positioning itself at the forefront of this evolution. Our roadmap includes:
+Kylix Finance is positioning itself at the forefront of capital-efficient, native Polkadot Hub lending. Our roadmap includes:
 
-- Integration with additional emerging L1 and L2 solutions
-- Collaboration with existing lending protocols to act as liquidity vaults.
-- Advanced lending features including FIAT Lending Pools and Undercollateralised Loans.
+- Deepening integration with the Polkadot Hub ecosystem
+- Advanced lending features including FIAT Lending Pools and Undercollateralised Loans
 - Institutional-grade services and further integration with TradFi
 
 ---
 
-By solving the fundamental challenges of cross-chain liquidity and creating a seamless user experience,
-Kylix Finance aims to become the backbone of the cross-chain lending infrastructure. We're not just building another DeFi protocol - we're building a network of lending networks, offering DeFi lending to protocols never before integrated into the DeFi ecosystem.
+By solving the fundamental challenges of capital efficiency and risk management, Kylix Finance aims to become the backbone of lending on Polkadot Hub.
 
-**Join us building the future of borderless finance, where blockchain boundaries disappear and opportunity reaches everyone.**
+**Join us building the future of capital-efficient finance, where every deposit works harder and opportunity reaches everyone.**
