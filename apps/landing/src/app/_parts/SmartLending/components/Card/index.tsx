@@ -5,8 +5,8 @@ import { SmartLending } from "~/types";
 const Card = ({ to, description, heading }: SmartLending) => {
   return (
     <Link
-      className=" p-0.5 w-full h-72 lg:h-[411px] rounded-3xl bg-gradient-to-br from-white/20 via-transparent"
       href={to}
+      className="h-72 w-full rounded-3xl bg-gradient-to-br from-white/20 via-transparent p-0.5 transition-colors duration-200 hover:from-primary-500/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500 lg:h-[411px]"
     >
       <div className="relative w-full h-full rounded-3xl p-7 overflow-hidden bg-secondary-500">
         <div
@@ -27,7 +27,7 @@ const Card = ({ to, description, heading }: SmartLending) => {
             {description}
           </p>
           <div className="flex justify-between items-center">
-            <h3 className="font-heading text-3xl md:font-bold md:text-4xl lg:text-5xl leading-5 md:leading-9 lg:leading-[68px]">
+            <h3 className="font-heading text-3xl leading-tight md:text-4xl md:font-bold lg:text-5xl">
               {heading}
             </h3>
             <ArrowRight />

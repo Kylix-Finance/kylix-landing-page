@@ -1,23 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Kylix, XIcon, Menu } from "~/assets/svgs";
+import Image from "next/image";
+import { XIcon, Menu } from "~/assets/svgs";
+import { kylixWordmarkImg } from "~/assets/images";
 import Link from "next/link";
 import { navItems } from "~/data";
 import { useLockBodyScroll } from "~/hooks/useLockBodyScroll";
 
-const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const navLinkClass =
+  "rounded-xs text-sm font-medium leading-5 text-white hover:text-primary-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500";
 
-  const toggleMenu = () => setIsOpen((prev) => !prev);
+export default function Header(): ReactElement {
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
+
+  const toggleMenu = (): void => setIsOpen((prev) => !prev);
   useLockBodyScroll({ isLocked: isOpen });
 
-  const renderedNavItems = navItems.map(({ label, link }, index) => (
+  useEffect(() => {
+    if (isOpen) closeRef.current?.focus();
+    else if (wasOpen.current) menuRef.current?.focus();
+    wasOpen.current = isOpen;
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
+  const renderedNavItems = navItems.map(({ label, link }) => (
     <Link
-      key={index + index}
-      className="font-medium text-sm leading-5 tracking-wide text-white"
+      key={link}
       href={link}
+      className={navLinkClass}
       onClick={() => setIsOpen(false)}
     >
       {label}
@@ -26,64 +49,66 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed w-full top-0 text-white py-4 z-[300]">
-        <div className="mx-6 py-4 px-8 flex justify-between items-center rounded-2xl border border-primary-900 bg-gradient-to-r from-[#11121439] to-[#0C0D0F45] backdrop-blur-3xl">
-          <Link className="font-bold text-lg" href="/">
-            <span className="tracking-wide">
-              <Kylix />
-            </span>
+      <header className="fixed top-0 z-20 w-full py-4 text-white">
+        <div className="mx-6 flex items-center justify-between gap-6 rounded-2xl border border-primary-900 bg-gradient-to-r from-[#11121439] to-[#0C0D0F45] px-8 py-4 backdrop-blur-3xl">
+          <Link href="/" aria-label="Kylix Finance, home" className="shrink-0">
+            <Image
+              src={kylixWordmarkImg}
+              alt=""
+              width={75}
+              height={30}
+              priority
+            />
           </Link>
-          <div className="lg:hidden w-full flex justify-end">
-            <button
-              aria-label="Toggle navigation menu"
-              className="text-white focus:outline-hidden"
-              onClick={toggleMenu}
-            >
-              {isOpen ? (
-                <XIcon className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-          </div>
-          <nav className="hidden lg:flex space-x-8 text-sm font-medium items-center">
+          <nav
+            aria-label="Primary"
+            className="hidden items-center gap-8 lg:flex"
+          >
             {renderedNavItems}
           </nav>
-          {/* <Link
-            href=""
-            className="hidden lg:block get-start-btn font-medium leading-5 text-sm"
+          <button
+            ref={menuRef}
+            type="button"
+            className="rounded-md text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 lg:hidden"
+            onClick={toggleMenu}
+            aria-label="Open menu"
+            aria-expanded={isOpen}
+            aria-controls="mobile-nav"
           >
-            Launch App
-          </Link> */}
-          <div></div>
+            <Menu className="h-6 w-6" />
+          </button>
         </div>
       </header>
 
       <AnimatePresence>
         {isOpen && (
           <motion.nav
-            animate={{ opacity: 1, y: 0 }}
-            className="lg:hidden bg-secondary-900/70 flex flex-col fixed w-screen h-screen text-white top-0 left-0 z-[400]"
-            exit={{ opacity: 0, y: "-100%" }}
+            id="mobile-nav"
+            aria-label="Mobile"
             initial={{ opacity: 0, y: "-100%" }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "-100%" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="fixed left-0 top-0 z-30 flex h-dvh w-screen flex-col bg-secondary-900/70 text-white lg:hidden"
           >
-            <div className="flex flex-col gap-3 w-full h-full bg-secondary-500 p-6 ">
+            <div className="flex h-full w-full flex-col gap-6 bg-secondary-500 p-6">
               <div className="flex items-center justify-between">
-                <Kylix />
-                <span onClick={toggleMenu}>
-                  <XIcon className="w-6 h-6" />
-                </span>
+                <Image src={kylixWordmarkImg} alt="" width={75} height={30} />
+                <button
+                  ref={closeRef}
+                  type="button"
+                  onClick={toggleMenu}
+                  aria-label="Close menu"
+                  className="rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+                >
+                  <XIcon className="h-6 w-6" />
+                </button>
               </div>
-              <div className="flex flex-col w-full h-full gap-4">
-                {renderedNavItems}
-              </div>
+              <div className="flex flex-col gap-4">{renderedNavItems}</div>
             </div>
           </motion.nav>
         )}
       </AnimatePresence>
     </>
   );
-};
-
-export default Header;
+}

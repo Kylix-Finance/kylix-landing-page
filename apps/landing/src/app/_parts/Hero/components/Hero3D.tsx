@@ -8,10 +8,9 @@ import Image from "next/image";
 import { logoImg } from "~/assets/images";
 import Button from "~/components/Button";
 import { calculateBottom } from "~/utils";
+import { heroCopy, heroIntroClassName, heroTitleClassName } from "../heroCopy";
 import Scene from "./Scene";
-import { useRouter } from "next/navigation";
 const Hero3D = () => {
-  const router = useRouter();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const { scrollY } = useScroll({ axis: "y" });
@@ -73,7 +72,6 @@ const Hero3D = () => {
           <Scene key={`${width}-${height}`} scrollYProgress={scrollYProgress} />
           {imgBottom !== -1 && (
             <motion.div
-              className="absolute left-1/2 "
               style={{
                 opacity: imageOpacity,
                 scale: imageOpacity,
@@ -81,51 +79,40 @@ const Hero3D = () => {
                 translateX: "-160px",
                 bottom: imgBottom,
               }}
+              className="absolute left-1/2 "
             >
-              <Image alt="kylix" height={320} src={logoImg} />
+              <Image
+                src={logoImg}
+                alt="Kylix"
+                height={320}
+                priority
+                sizes="(min-width: 700px) 320px, 160px"
+              />
             </motion.div>
           )}
           {/* FIRST Text START */}
           <motion.div
-            className="absolute top-[20%] flex flex-col gap-2 justify-center items-center z-50"
             style={{
               opacity: firstTextOpacity,
               translateY: firstTextTranslateY,
             }}
+            className="absolute top-[20%] flex flex-col gap-2 justify-center items-center z-50"
           >
-            <h2 className="flex flex-col sm:flex-row justify-center items-center gap-2.5 font-bold font-heading w-full h-full text-4xl md:text-5xl lg:text-6xl">
-              <span className="text-primary-500">
-                Native Polkadot&nbsp; Lending.
-              </span>
-              <span className="text-white"> &nbsp;Evolved.</span>
-            </h2>
-            <p className="font-light text-xs md:text-sm lg:text-base leading-6 text-secondary-100 text-center ">
-              <b>
-                Borrow, lend and earn with best-in-class capital efficiency.{" "}
-                <br />
-                Kylix Finance, the lending protocol built natively for
-                Polkadot Hub.
-              </b>
-              <br />
-              <br />
-            </p>
-            <div className="flex gap-4 z-50">
-              <Button
-                color="secondary"
-                onClick={() => {
-                  router.push("#smart-lending");
-                }}
-              >
-                Coming soon
+            <h1 className={heroTitleClassName}>
+              <span className="text-primary-500">{heroCopy.titleLead}</span>
+              <span className="text-white">{heroCopy.titleRest}</span>
+            </h1>
+            <p className={heroIntroClassName}>{heroCopy.intro}</p>
+            <div className="z-50 flex gap-4">
+              <Button href={heroCopy.primary.href} color="secondary">
+                {heroCopy.primary.label}
               </Button>
               <Button
+                href={heroCopy.secondary.href}
                 color="white"
                 variant="outline"
-                onClick={() => {
-                  router.push("#markets-trends");
-                }}
               >
-                Learn more
+                {heroCopy.secondary.label}
               </Button>
             </div>
           </motion.div>
@@ -135,33 +122,20 @@ const Hero3D = () => {
 
           {/* SECOND Text START */}
           <motion.div
-            className="absolute top-[35%] flex flex-col gap-2 justify-center items-center z-40"
             style={{
               opacity: secondTextOpacity,
               translateY: sSecondTextTranslateY,
             }}
+            className="absolute top-[35%] flex flex-col gap-2 justify-center items-center z-40"
           >
-            <h2 className="flex flex-col sm:flex-row justify-center items-center gap-2.5 font-bold font-heading w-full h-full text-4xl md:text-5xl lg:text-6xl">
-              <span className="text-primary-500">Capital-Efficient&nbsp;</span>
-              <span className="text-white"> Lending</span>
+            <h2 className={heroTitleClassName}>
+              <span className="text-primary-500">{heroCopy.secondLead}</span>
+              <span className="text-white">{heroCopy.secondRest}</span>
             </h2>
-            <p className="font-light text-xs md:text-sm lg:text-base leading-6 text-secondary-100 text-center ">
-              <b>
-                Self-repaying loans and polynomial interest rates, built
-                natively for Polkadot Hub. <br />
-                Lend and borrow without compromises.
-              </b>
-              <br />
-              <br />
-            </p>
-            <div className="flex gap-4 z-50">
-              <Button
-                color="secondary"
-                onClick={() => {
-                  router.push("#markets-trends");
-                }}
-              >
-                Learn more
+            <p className={heroIntroClassName}>{heroCopy.secondIntro}</p>
+            <div className="z-50 flex gap-4">
+              <Button href={heroCopy.secondCta.href} color="secondary">
+                {heroCopy.secondCta.label}
               </Button>
             </div>
           </motion.div>

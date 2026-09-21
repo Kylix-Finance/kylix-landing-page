@@ -27,17 +27,3 @@ export const getContentData = (slug: string) => {
     description: data.description,
   };
 };
-export const getFooterContentData = () => {
-  const slugs = getAllContentSlugs();
-  const data = slugs
-    .map((slug) => {
-      const post = getContentData(slug);
-      if (!post) return null;
-      return {
-        slug,
-        title: post.title,
-      };
-    })
-    .filter(Boolean);
-  return data;
-};

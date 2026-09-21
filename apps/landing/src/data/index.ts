@@ -1,3 +1,4 @@
+import { waitingListSectionId } from "./ids";
 import {
   Asset,
   FeaturedPartners,
@@ -8,239 +9,207 @@ import {
   SmartLending,
   Section,
 } from "~/types";
+import { BorrowImage, Check, Focus, Shield } from "~/assets/svgs";
 import {
-  BorrowImage,
-  Check,
-  Focus,
-  Shield,
-  DecentralizedFutures,
-  HarbourIndustrialCapital,
-  HercleFinancial,
-  Pendulum,
-  Polimec,
-} from "~/assets/svgs";
+  decentralizedFuturesLogo,
+  harbourIndustrialCapitalLogo,
+  hercleLogo,
+} from "~/assets/images";
 
 export const smartLendingData: Section<SmartLending> = {
   id: "smart-lending",
-  header: "Native Polkadot Hub lending",
+  header: "Protocol",
   heading: {
-    left: "One Platform.",
-    right: "Natively Polkadot Hub.",
+    left: "One book",
+    right: "on Polkadot Hub",
   },
   description:
-    "Experience capital-efficient Lending built natively for Polkadot Hub, designed specifically to maximize capital efficiency.",
+    "Supply, borrow and liquidation are written to one Hub state. There is no bridge receipt and no wrapped stand-in.",
   items: [
     {
-      to: "/",
-      heading: "CAPITAL EFFICIENCY",
+      to: "/#how-it-works",
+      heading: "Capital at work",
       description:
-        "Kylix Finance is a decentralized, trustless lending protocol that allows users to lend, borrow and earn natively on Polkadot Hub. The Kylix protocol allows users to lend and borrow assets at extremely competitive rates using an innovative architectural tech solution.",
+        "Collateral does not sit still. A self-repaying loan moves it into a yield-bearing position and uses that yield to pay the debt down.",
     },
     {
-      to: "/",
-      heading: "ONE-PLATFORM",
+      to: "/#markets-trends",
+      heading: "One state",
       description:
-        "Kylix stores the entire state of the protocol natively on Polkadot Hub. The unified state storage ensures consistency and avoids issues related to asynchronicity and race conditions.",
+        "The protocol state lives in Polkadot Hub storage. A position updates there, so there is no second chain to wait on.",
     },
   ],
 };
 
-// NOTE: asset list is a placeholder — confirm final supported assets before launch.
-// USDT omitted: no icon asset available yet at apps/landing/public/assets/images/assets — add it once the icon exists.
+// USDT stays off this list until an icon exists and the market is confirmed.
 export const supportedAssetsData: Section<Asset> = {
-  header: "Supported Assets",
-  heading: { left: "Supported ", right: " ASSETS" },
-  description: "Lend, Borrow and Earn natively on Polkadot Hub:",
+  header: "Assets",
+  heading: { left: "Launch", right: "markets" },
+  description:
+    "DOT and USDC first. A further asset is added only after an oracle and a listing decision. USDT is not listed yet.",
   id: "supported-assets-and-apy",
   items: [
     {
-      // eslint-disable-next-line @cspell/spellchecker
-      src: "/assets/images/assets/polkdot.png",
-      alt: "DOT",
+      src: "/assets/images/assets/dot.png",
+      symbol: "DOT",
       isLaunched: true,
     },
     {
       src: "/assets/images/assets/usdc.png",
-      alt: "USDC",
+      symbol: "USDC",
       isLaunched: true,
     },
   ],
 };
+
 export const howItsWorksData: Section<HowItsWork> = {
-  header: "Why Kylix?",
+  header: "Why Kylix",
   heading: {
-    left: "Why",
-    right: "Kylix Finance?",
+    left: "Three",
+    right: "roles",
   },
-  description: "",
+  description:
+    "One pool. Lenders, borrowers and liquidators use it differently.",
   id: "how-it-works",
   items: [
     {
       id: "deposit",
-      heading: "NATIVE POLKADOT HUB LENDING",
+      heading: "Supply",
       description:
-        "Deposit, lend and earn interest on your assets, natively on Polkadot Hub. Make your assets work for you!",
+        "Deposit DOT or USDC and earn the pool rate. You can withdraw only what the pool still has available.",
     },
     {
       id: "convert",
-      heading: "DEPOSIT AND BORROW ",
+      heading: "Borrow",
       description:
-        "Borrow, secure with collateral, and settle debts natively on Polkadot Hub.",
+        "Post collateral, draw the loan and repay on Hub. The position has to stay over-collateralized.",
     },
     {
       id: "borrow",
-      heading: "LIQUIDATE AND EARN",
+      heading: "Liquidate",
       description:
-        "Earn interest on your deposits and loans. Earn rewards for providing liquidity. Earn assets below market prices by participating in the collateral marketplace.",
+        "Past the threshold, collateral is sold through a queue. Bids fill from the smallest discount. If the queue cannot cover the debt, the rest is swapped with an external market maker.",
       image: BorrowImage,
     },
   ],
 };
+
 export const securityAndAuditsData: Section<Security> = {
   header: "Roadmap",
   heading: {
-    left: "COMING",
-    right: "SOON",
+    left: "Before",
+    right: "mainnet",
   },
   description:
-    "Working hard to bring you the best features, paired with top-notch security.",
+    "Each step finishes before the next one gets a public date. There is no launch date yet.",
   id: "security-and-audits",
   items: [
     {
-      heading: "Work in progress...",
+      heading: "In build",
       description:
-        "Building and Testing. We are committed to protocol security to avoid faulty protocol states, including always ensuring the liquidity of your assets, preventing liquidation spirals and slashing faulty oracles.",
+        "The pool, the rate curve and the liquidation queue are in development and internal testing. A position that would break the collateral rules is rejected.",
       icon: Shield,
     },
     {
-      heading: "Testnet Ready Q1 2025",
+      heading: "Audit, then beta",
       description:
-        "We will be announcing the Testnet launch date soon. Stay tuned and sign up for our newsletter to be the first to participate in our private beta testing.",
+        "A private beta starts after an external review. The plan includes Polkadot Assurance Legion and the vCISO programme. Reports are published when they exist.",
       icon: Focus,
     },
     {
-      heading: "Live in Q2 2025",
+      heading: "Testnet, then mainnet",
       description:
-        "We will go live in March 2025. We look forward to seeing you on board, and in the meantime, please follow us on our social media channels to keep up to date.",
+        "Private beta, then a public testnet, then mainnet. The list at the bottom of this page is how you hear the date.",
       icon: Check,
     },
   ],
 };
 
 export const marketTrendsData: Section<MarketTrend> = {
-  header: "Unique Features",
+  header: "Mechanics",
   heading: {
-    left: "Unique",
-    right: "Features",
+    left: "What is",
+    right: "different",
   },
-  description:
-    "Unique and advanced lending products and services to benefit the DeFi ecosystem.",
+  description: "Three parts of the protocol, not a longer feature list.",
   id: "markets-trends",
   items: [
     {
       id: 0,
-      label: "A New Lending Protocol",
+      label: "Lending",
       image: "/assets/images/market-trends/0.png",
+      imageAlt:
+        "Sample Kylix dashboard with made-up totals for value locked, price and treasury. Not live data.",
+      imageNote: "Sample screen. These figures are not live.",
       items: [
         {
-          title: "Built Natively for Polkadot Hub",
+          title: "Hub assets, not wrapped ones",
           description:
-            "Kylix Finance is a lending protocol built natively on Polkadot Hub, with no bridging or wrapped tokens required.",
+            "DOT and USDC stay Polkadot Hub assets. Kylix does not wrap them and does not ask you to bridge in.",
         },
         {
-          title: "Power up next-generation Lending",
+          title: "A rate that pays before the pool is full",
           description:
-            "Become a liquidator with our Collateral Liquidation Marketplace, lend without risk with Self-Repaying Loans, enjoy Collateral Scoring and new Lending Pools powered by new generation interest rate formulas.",
+            "Many curves stay near zero until utilization is high, so lenders leave. The polynomial curve pays earlier, then rises faster as the pool fills.",
         },
         {
-          // eslint-disable-next-line @cspell/spellchecker
-          title: "Autonomous Rewards and a Deflationary Tokenomic.",
+          title: "A queue, not a dump",
           description:
-            "An automated treasury that distributes rewards to incentivize lenders to provide liquidity and automatically burns the native token to apply deflationary pressure to the network as borrowing volume increases.",
+            "Liquidated collateral is offered to bidders. The smallest discount fills first. Whatever the queue cannot cover is swapped with an external market maker.",
         },
       ],
-      // actions: {
-      //   primary: {
-      //     label: "Learn More",
-      //     action: () => {
-      //       console.log("Lending: Learn More clicked");
-      //     },
-      //   },
-      //   secondary: {
-      //     label: "Get Started",
-      //     action: () => {
-      //       console.log("Lending: Get Started clicked");
-      //     },
-      //   },
-      // },
     },
   ],
 };
+
 export const featuredPartnersData: Section<FeaturedPartners> = {
-  header: "Featured partners",
+  header: "Backers",
   id: "featured-partners",
   heading: {
-    left: "Proudly Supported By",
+    left: "Supported by",
   },
   items: [
     {
-      link: "/",
-      // eslint-disable-next-line @cspell/spellchecker
-      name: "Decentralised Future",
-      icon: DecentralizedFutures,
+      link: "https://wiki.polkadot.com/learn/decentralized-futures/",
+      name: "Decentralized Futures",
+      logo: decentralizedFuturesLogo,
     },
     {
-      link: "/",
-      // eslint-disable-next-line @cspell/spellchecker
+      link: "https://hercle.com/",
       name: "Hercle",
-      icon: HercleFinancial,
+      logo: hercleLogo,
     },
     {
-      link: "/",
+      link: "https://www.harbourindustrial.com/",
       name: "Harbour Industrial Capital",
-      icon: HarbourIndustrialCapital,
+      logo: harbourIndustrialCapitalLogo,
     },
-    {
-      link: "/",
-      name: "Pendulum",
-      icon: Pendulum,
-    },
-    {
-      link: "/",
-      // eslint-disable-next-line @cspell/spellchecker
-      name: "Polimec",
-      icon: Polimec,
-    },
-    // {
-    //   link: "/",
-    //   name: "BlockDeep",
-    //   icon: StakeHouse,
-    // },
   ],
 };
+
 export const navItems: NavItem[] = [
-  smartLendingData.header && {
-    label: smartLendingData.header,
+  {
+    label: smartLendingData.header ?? "Protocol",
     link: `/#${smartLendingData.id}`,
   },
-  marketTrendsData.header && {
-    label: marketTrendsData.header,
+  {
+    label: marketTrendsData.header ?? "Mechanics",
     link: `/#${marketTrendsData.id}`,
   },
-  supportedAssetsData.header && {
-    label: supportedAssetsData.header,
+  {
+    label: supportedAssetsData.header ?? "Assets",
     link: `/#${supportedAssetsData.id}`,
   },
-  howItsWorksData.header && {
-    label: howItsWorksData.header,
+  {
+    label: howItsWorksData.header ?? "Why Kylix",
     link: `/#${howItsWorksData.id}`,
   },
-  securityAndAuditsData.header && {
-    label: securityAndAuditsData.header,
+  {
+    label: securityAndAuditsData.header ?? "Roadmap",
     link: `/#${securityAndAuditsData.id}`,
   },
-  featuredPartnersData.header && {
-    label: featuredPartnersData.header,
-    link: `/#${featuredPartnersData.id}`,
+  {
+    label: "Join",
+    link: `/#${waitingListSectionId}`,
   },
-].filter((item): item is NavItem => !!item);
+];

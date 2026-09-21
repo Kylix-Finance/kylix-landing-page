@@ -16,7 +16,7 @@ const Card = ({ description, heading, icon: Icon }: Security) => {
           </div>
         </div>
 
-        <h3 className="font-heading text-3xl leading-9 text-white">
+        <h3 className="font-heading text-3xl leading-tight text-white">
           {heading}
         </h3>
       </div>

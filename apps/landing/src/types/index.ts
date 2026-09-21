@@ -1,4 +1,5 @@
 import { ComponentType, SVGProps } from "react";
+import { StaticImageData } from "next/image";
 export interface Section<T> {
   id: string;
   heading: {
@@ -38,22 +39,24 @@ export type MarketTrend = {
   id: number;
   label: string;
   image: string;
+  imageAlt: string;
+  imageNote?: string;
   items: MarketTrendItem[];
   actions?: {
     primary?: {
       label: string;
-      action: globalThis.VoidFunction;
+      action: () => void;
     };
     secondary?: {
       label: string;
-      action: globalThis.VoidFunction;
+      action: () => void;
     };
   };
 };
 
 export type Asset = {
   src: string;
-  alt: string;
+  symbol: string;
   isLaunched: boolean;
 };
 
@@ -66,7 +69,7 @@ export type SocialMedia = {
 export type FeaturedPartners = {
   link: string;
   name: string;
-  icon: Icon;
+  logo: StaticImageData;
 };
 export type FooterItem = {
   title: string;

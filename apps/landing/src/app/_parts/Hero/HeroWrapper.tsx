@@ -1,10 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import HeroIntro from "./HeroIntro";
 
 const Hero = dynamic(() => import("./index"), {
   ssr: false,
-  loading: () => <div className="w-full h-screen" />,
+  loading: () => <HeroIntro />,
 });
 
 export default Hero;

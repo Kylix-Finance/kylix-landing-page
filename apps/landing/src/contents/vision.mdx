@@ -1,54 +1,32 @@
 ---
-title: "Vision"
-description: "Why Kylix?"
+title: "Why Kylix exists"
+description: "Lending pools leave collateral idle and sell it badly when a loan fails. Kylix is built to do both jobs on Polkadot Hub."
 ---
 
-# Empowering DeFi Through Capital-Efficient Lending
+Lending protocols already exist. The useful question is what the collateral does while a loan is open, and what happens to it when the loan fails.
 
-Our mission is to build the most capital-efficient lending protocol native to Polkadot Hub.
+## What goes wrong
 
-In 2024, the DeFi landscape faces a critical challenge: existing lending protocols often leave capital idle, rely on static interest rate models that fail to respond to real market conditions, and expose borrowers to inefficient liquidation processes that destroy value for both borrowers and the protocol.
+Most pools share the same three faults.
 
-## The Current State of DeFi Lending
+- The interest curve stays flat until the pool is almost fully borrowed, so lenders have little reason to deposit early.
+- Collateral sits in the position and earns nothing for the borrower, even when that asset has a liquid staking market.
+- Liquidation sells into a thin book, or at a fixed discount, and both the borrower and the pool take the loss.
 
-The fundamental problem in today's lending ecosystem isn't the lack of protocols—it's the absence of capital efficiency and intelligent risk management. When a user wants to lend or borrow, they typically face:
+A longer list of markets does not fix that. Wrapping the asset, so it can move to a chain that already has a pool, does not fix it either.
 
-- Static interest rate models that don't respond to market utilization
-- Idle collateral that generates no yield while securing a loan
-- Inefficient liquidation processes that destroy value for both borrowers and lenders
-- Limited options for exotic tokens
-- Loan pools that lack adequate incentive mechanisms to bootstrap and maintain stable liquidity
+## What Kylix does
 
-While existing solutions have made progress, none have successfully combined deep liquidity, optimal capital efficiency, and a seamless user experience into a single, powerful platform.
+Kylix is an over-collateralized lending protocol on Polkadot Hub. Positions are stored in Hub state. DOT and USDC are the first markets.
 
-## The Kylix Solution
+- **Self-repaying loans.** Collateral moves into a yield-bearing position, and that yield pays the debt down. If the yield is lower than the borrow rate, the borrower still owes the difference.
+- **A polynomial rate.** Lenders are paid while utilization is still low, and the rate steepens as the pool fills. The aim is to have liquidity before borrowers are rationed.
+- **A liquidation queue.** Collateral from an unhealthy position is offered to bidders. The smallest discount fills first. If the queue cannot cover the debt, the remainder is swapped with an external market maker.
 
-Kylix Finance is a lending protocol built natively on Polkadot Hub, designed around capital efficiency and intelligent risk management. Our protocol enables:
+You can use the protocol as a lender, a borrower or a liquidator. Fees on borrows and liquidations go to the treasury. The whitepaper sets out how that treasury is split, including the share of KLX that is burned.
 
-- Self-repaying loans, where deposited collateral is converted into an interest-bearing asset that automatically covers the debt position
-- A polynomial interest rate model that incentivizes liquidity providers even when market utilization is low
-- A queue-based liquidation marketplace, where liquidated collateral is made available to the community through a fair bidding process
-- Collateral scoring and loan pools designed for capital efficiency
+## What it is not
 
-## Beyond Simple Lending
+Kylix does not bridge you in, and it does not wrap your DOT. It is not on mainnet. The public release waits on an external audit and a private test. A date is published when the previous step is finished.
 
-Kylix Finance is not just another lending pool - it's a comprehensive, capital-efficient lending infrastructure. Our protocol enables:
-
-- Users to act as lenders, borrowers or liquidators
-- Automated collection of protocol fees on every borrow and liquidation
-- Self-repaying loans for the enjoyment of negative interest loans
-- Collateral scoring and loan pools with new-generation interest rate design
-
-## The Road Ahead
-
-Kylix Finance is positioning itself at the forefront of capital-efficient, native Polkadot Hub lending. Our roadmap includes:
-
-- Deepening integration with the Polkadot Hub ecosystem
-- Advanced lending features including FIAT Lending Pools and Undercollateralised Loans
-- Institutional-grade services and further integration with TradFi
-
----
-
-By solving the fundamental challenges of capital efficiency and risk management, Kylix Finance aims to become the backbone of lending on Polkadot Hub.
-
-**Join us building the future of capital-efficient finance, where every deposit works harder and opportunity reaches everyone.**
+Loans that require less collateral are not part of this version. Later work is a deeper integration with the rest of Polkadot Hub, after the over-collateralized markets are live.

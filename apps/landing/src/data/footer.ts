@@ -1,7 +1,18 @@
 import { Discord, Telegram, Twitter } from "~/assets/svgs";
 import { Footer } from "~/types";
-import { getFooterContentData } from "~/utils/mdx";
-const data = getFooterContentData();
+import { getContentData } from "~/utils/mdx";
+
+function pageLink(
+  slug: string,
+  fallback: string
+): { label: string; link: string } {
+  const page = getContentData(slug);
+  const title = typeof page?.title === "string" ? page.title.trim() : "";
+  return {
+    label: title.length > 0 ? title : fallback,
+    link: `/${slug}`,
+  };
+}
 
 export const footerData: Footer = {
   left: [
@@ -24,35 +35,23 @@ export const footerData: Footer = {
   right: [
     {
       title: "About",
-      items:
-        data &&
-        data.reverse().map((item) => ({
-          label: item?.title || "",
-          link: item?.slug || "",
-        })),
+      items: [pageLink("vision", "Vision"), pageLink("faq", "FAQ")],
     },
     {
       title: "Resources",
       items: [
         {
-          label: "Documentation",
-          link: "https://kylix-docs.vercel.app",
-        },
-        //{
-        //  label: "FAQ",
-        //  link: "faq",
-        //},
-        {
           label: "Whitepaper",
           link: "https://docsend.com/view/f7xa65w29ckkpz2j",
         },
+        pageLink("privacy", "Privacy"),
       ],
     },
     {
       title: "Socials",
       items: [
         {
-          label: "Twitter",
+          label: "X",
           link: "https://x.com/kylixfinance",
         },
         {

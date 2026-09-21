@@ -1,49 +1,24 @@
 "use client";
+
+import { ReactElement } from "react";
+import dynamic from "next/dynamic";
+import { useReducedMotion } from "framer-motion";
 import { useWindowSize } from "usehooks-ts";
-import Hero3D from "./components/Hero3D";
-import Button from "~/components/Button";
-import Image from "next/image";
-import { logoImg } from "~/assets/images";
+import HeroIntro from "./HeroIntro";
 
-const Hero = () => {
+const Hero3D = dynamic(() => import("./components/Hero3D"), {
+  ssr: false,
+  loading: () => <HeroIntro />,
+});
+
+export default function Hero(): ReactElement {
+  const reduceMotion = useReducedMotion();
   const { height = 0, width = 0 } = useWindowSize();
+  const desktop = height >= 600 && width >= 700;
 
-  return (
-    <div className="h-full w-full">
-      {height >= 600 && width >= 700 ? (
-        <Hero3D />
-      ) : (
-        // This is the fallback for smaller screens
-        <div className="w-full h-full relative flex flex-col justify-center items-center">
-          <div className="px-6 mt-[20vh] flex flex-col gap-2 justify-center items-center z-50">
-            <h2 className="flex flex-col sm:flex-row justify-center items-center gap-2.5 font-bold font-heading w-full h-full text-4xl md:text-5xl lg:text-6xl">
-              <span className="text-primary-500 flex-wrap text-center">
-                Native Polkadot &nbsp;Lending.
-              </span>
-              <span className="text-white"> Evolved</span>
-            </h2>
-            <p className="font-light text-xs md:text-sm lg:text-base leading-6 text-secondary-100 text-center ">
-              <b>
-                Borrow, lend and earn with best-in-class capital efficiency.{" "}
-                <br />
-                Kylix Finance, the lending protocol built natively for
-                Polkadot Hub.
-              </b>
-              <br />
-              <br />
-            </p>
-            <div className="flex gap-4">
-              <Button color="secondary">Coming Soon</Button>
-              <Button color="white" variant="outline">
-                Learn more
-              </Button>
-            </div>
-          </div>
-          <Image alt="kylix" height={400} src={logoImg} />
-        </div>
-      )}
-    </div>
-  );
-};
+  if (reduceMotion !== false || !desktop) {
+    return <HeroIntro />;
+  }
 
-export default Hero;
+  return <Hero3D />;
+}

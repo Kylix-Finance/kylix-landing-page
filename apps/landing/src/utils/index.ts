@@ -1,8 +1,20 @@
 import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-export function cn(...args: ClassValue[]) {
+export function cn(...args: ClassValue[]): string {
   return twMerge(clsx(args));
+}
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_EMAIL_LENGTH = 254;
+
+export function isEmailAddress(value: string): boolean {
+  const email = value.trim();
+  return (
+    email.length > 0 &&
+    email.length <= MAX_EMAIL_LENGTH &&
+    EMAIL_PATTERN.test(email)
+  );
 }
 
 export function calculateBottom(h: number): number {
