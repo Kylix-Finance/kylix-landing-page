@@ -12,9 +12,9 @@ import WaitingList from "./_parts/WaitingList";
 
 export const metadata: Metadata = mergeMetadata(
   {
-    title: "Multi-chain lending for Web3",
+    title: "Native Lending for Polkadot Hub",
     description:
-      "A new-gen multi-chain Lending platform for managing over-collateralized loans & aggregating cross-chain Liquidity.",
+      "Kylix is a lending protocol built natively on Polkadot Hub, managing over-collateralized loans with best-in-class capital efficiency.",
   },
   "Kylix Finance"
 );

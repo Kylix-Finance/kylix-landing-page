@@ -14,7 +14,6 @@ import {
   Focus,
   Shield,
   DecentralizedFutures,
-  EquitoNetwork,
   HarbourIndustrialCapital,
   HercleFinancial,
   Pendulum,
@@ -23,68 +22,47 @@ import {
 
 export const smartLendingData: Section<SmartLending> = {
   id: "smart-lending",
-  header: "Multi-Chain lending",
+  header: "Native Polkadot Hub lending",
   heading: {
     left: "One Platform.",
-    right: "Natively Multi-Chain.",
+    right: "Natively Polkadot Hub.",
   },
   description:
-    "Experience real cross-chain Lending with our new Hub&Spoke Technology, designed specifically to offer native multi-chain lending.",
+    "Experience capital-efficient Lending built natively for Polkadot Hub, designed specifically to maximize capital efficiency.",
   items: [
     {
       to: "/",
-      heading: "LIQUIDITY HUB",
+      heading: "CAPITAL EFFICIENCY",
       description:
-        "Kylix Finance is a decentralized protocol for lending, borrowing, and earning across networks. It enables asset transfers between major blockchains without wrapped tokens or bridging, offering competitive rates with an innovative tech solution. ",
+        "Kylix Finance is a decentralized, trustless lending protocol that allows users to lend, borrow and earn natively on Polkadot Hub. The Kylix protocol allows users to lend and borrow assets at extremely competitive rates using an innovative architectural tech solution.",
     },
     {
       to: "/",
       heading: "ONE-PLATFORM",
       description:
-        "The Kylix Hub chain stores the entire state of the protocol and provides native lending for cross-chain liquidity managed directly to our lending hub. The unified state storage ensures consistency and avoids issues related to asynchronicity and race conditions between remote chains.",
+        "Kylix stores the entire state of the protocol natively on Polkadot Hub. The unified state storage ensures consistency and avoids issues related to asynchronicity and race conditions.",
     },
   ],
 };
 
+// NOTE: asset list is a placeholder — confirm final supported assets before launch.
+// USDT omitted: no icon asset available yet at apps/landing/public/assets/images/assets — add it once the icon exists.
 export const supportedAssetsData: Section<Asset> = {
-  header: "Supported Chains",
-  heading: { left: "Supported ", right: " CHAINS" },
-  description: "Lend, Borrow and Earn seamlessly across:",
+  header: "Supported Assets",
+  heading: { left: "Supported ", right: " ASSETS" },
+  description: "Lend, Borrow and Earn natively on Polkadot Hub:",
   id: "supported-assets-and-apy",
   items: [
     {
       // eslint-disable-next-line @cspell/spellchecker
       src: "/assets/images/assets/polkdot.png",
-      alt: "Polkadot",
+      alt: "DOT",
       isLaunched: true,
     },
     {
-      // eslint-disable-next-line @cspell/spellchecker
-      src: "/assets/images/assets/solana.png",
-      // eslint-disable-next-line @cspell/spellchecker
-      alt: "Solana",
+      src: "/assets/images/assets/usdc.png",
+      alt: "USDC",
       isLaunched: true,
-    },
-    {
-      src: "/assets/images/assets/sei.png",
-      alt: "Sei",
-      isLaunched: false,
-    },
-    {
-      // eslint-disable-next-line @cspell/spellchecker
-      src: "/assets/images/assets/mintlayer.png",
-      alt: "MintLayer",
-      isLaunched: false,
-    },
-    {
-      src: "/assets/images/assets/eth.png",
-      alt: "ETH",
-      isLaunched: false,
-    },
-    {
-      src: "/assets/images/assets/sui.png",
-      alt: "Sui",
-      isLaunched: false,
     },
   ],
 };
@@ -99,16 +77,15 @@ export const howItsWorksData: Section<HowItsWork> = {
   items: [
     {
       id: "deposit",
-      heading: "HUB & SPOKE TECHNOLOGY",
+      heading: "NATIVE POLKADOT HUB LENDING",
       description:
-        // eslint-disable-next-line @cspell/spellchecker
-        "Deposit, lend and earn an intererst from your native assets from any chain. Make your assets work for you  — no bridging required!",
+        "Deposit, lend and earn interest on your assets, natively on Polkadot Hub. Make your assets work for you!",
     },
     {
       id: "convert",
       heading: "DEPOSIT AND BORROW ",
       description:
-        "Borrow, secure with collateral, and settle debts across any chain, regardless of which One your deposit comes from.",
+        "Borrow, secure with collateral, and settle debts natively on Polkadot Hub.",
     },
     {
       id: "borrow",
@@ -166,9 +143,9 @@ export const marketTrendsData: Section<MarketTrend> = {
       image: "/assets/images/market-trends/0.png",
       items: [
         {
-          title: "Forget Bridges and Wrapped Assets",
+          title: "Built Natively for Polkadot Hub",
           description:
-            "Kylix Finance protocol design removes the need for bridges and wrapped tokens, for EVM and non-EVM chains.",
+            "Kylix Finance is a lending protocol built natively on Polkadot Hub, with no bridging or wrapped tokens required.",
         },
         {
           title: "Power up next-generation Lending",
@@ -211,12 +188,6 @@ export const featuredPartnersData: Section<FeaturedPartners> = {
       // eslint-disable-next-line @cspell/spellchecker
       name: "Decentralised Future",
       icon: DecentralizedFutures,
-    },
-    {
-      link: "/",
-      // eslint-disable-next-line @cspell/spellchecker
-      name: "Equito Network",
-      icon: EquitoNetwork,
     },
     {
       link: "/",
