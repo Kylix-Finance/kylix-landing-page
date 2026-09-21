@@ -23,8 +23,8 @@ Before running the project, ensure you have the following installed on your mach
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Kylix-Finance/kylix-finance-frontend.git
-   cd kylix-finance-frontend
+   git clone https://github.com/Kylix-Finance/kylix-landing-page.git
+   cd kylix-landing-page
    ```
 
 2. **Install dependencies:**
