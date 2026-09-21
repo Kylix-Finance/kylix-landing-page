@@ -1,31 +1,42 @@
+import { ReactElement } from "react";
+import Image from "next/image";
 import { featuredPartnersData } from "~/data";
-import Link from "next/link";
 
-const FeaturedPartners = () => {
+export default function FeaturedPartners(): ReactElement {
   return (
-    <div
-      className="flex flex-col gap-10 justify-center items-center w-full relative z-10 scroll-m-[11rem]  lg:max-w-[1900px]"
+    <section
       id={featuredPartnersData.id}
+      aria-labelledby="backers-heading"
+      className="relative z-10 flex w-full scroll-mt-32 flex-col items-center justify-center gap-10 lg:max-w-[1900px]"
     >
-      <h2 className="text-xl lg:text-3xl font-bold text-white">
+      <h2
+        id="backers-heading"
+        className="text-xl font-bold text-white lg:text-3xl"
+      >
         {featuredPartnersData.heading.left}
       </h2>
-      <div className="w-full flex items-center gap-10 md:gap-28 justify-center flex-wrap px-8">
-        {featuredPartnersData.items.map(({ icon: Icon, link, name }) => (
-          <Link
-            key={link}
-            className="w-32 h-44 lg:w-28 flex flex-col items-center lg:gap-9"
-            href={link}
-          >
-            <Icon className="h-20" />
-            <p className="w-36 text-sm lg:text-lg font-medium text-white leading-loose lg:leading-5 -mt-1 text-center">
-              {name}
-            </p>
-          </Link>
+      <ul className="flex w-full flex-wrap items-center justify-center gap-x-16 gap-y-10 px-6">
+        {featuredPartnersData.items.map(({ logo, link, name }) => (
+          <li key={name}>
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-24 w-32 flex-col items-center justify-center gap-3 rounded-md opacity-80 transition-opacity duration-200 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500 lg:h-32 lg:w-36"
+            >
+              <Image
+                src={logo}
+                alt=""
+                sizes="64px"
+                className="h-10 w-auto lg:h-12"
+              />
+              <p className="text-center text-sm font-medium leading-5 text-white lg:text-base">
+                {name}
+              </p>
+            </a>
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
-};
-
-export default FeaturedPartners;
+}

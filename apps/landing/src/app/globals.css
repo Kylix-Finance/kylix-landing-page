@@ -26,8 +26,8 @@
 }
 
 @theme inline {
-  --font-body: var(--font-sans);
-  --font-heading: var(--font-migha);
+  --font-body: var(--font-instrument-sans), sans-serif;
+  --font-heading: var(--font-migha), sans-serif;
 }
 
 @utility hide-scrollbar {
@@ -40,12 +40,15 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth !important;
+    scroll-behavior: smooth;
   }
+
   body {
     position: relative;
     min-height: 100vh;
+    text-rendering: optimizeLegibility;
   }
+
   /* Tailwind v4 preflight dropped the v3 pointer cursor on buttons. */
   button:not(:disabled),
   [role="button"]:not(:disabled) {
@@ -53,10 +56,199 @@
   }
 }
 
-@layer utilities {
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      120% 80% at 50% -12%,
+      rgba(86, 221, 180, 0.18),
+      transparent 52%
+    ),
+    radial-gradient(
+      70% 50% at 100% 100%,
+      rgba(12, 48, 40, 0.7),
+      transparent 62%
+    ),
+    #070809;
 }
 
-@layer components {
+/* Soft falloff comes from the gradient itself: a large animated blur() is too costly per frame. */
+.atmosphere-bloom {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+}
+
+.atmosphere-bloom-a {
+  top: -24%;
+  left: -16%;
+  width: min(66vw, 820px);
+  height: min(66vw, 820px);
+  background: radial-gradient(
+    closest-side,
+    rgba(86, 221, 180, 0.38),
+    rgba(86, 221, 180, 0.12) 55%,
+    transparent
+  );
+  animation: atmosphere-drift-a 28s ease-in-out infinite;
+}
+
+.atmosphere-bloom-b {
+  right: -20%;
+  bottom: -12%;
+  width: min(60vw, 740px);
+  height: min(60vw, 740px);
+  background: radial-gradient(
+    closest-side,
+    rgba(28, 110, 90, 0.5),
+    rgba(28, 110, 90, 0.16) 55%,
+    transparent
+  );
+  animation: atmosphere-drift-b 36s ease-in-out infinite;
+}
+
+.atmosphere-bloom-c {
+  top: 30%;
+  left: 35%;
+  width: min(34vw, 420px);
+  height: min(34vw, 420px);
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  animation: atmosphere-drift-c 24s ease-in-out infinite;
+}
+
+/* The second mask layer dims the ribbon behind the hero copy so the text keeps its contrast. */
+.atmosphere-silk {
+  position: absolute;
+  inset: -14%;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  will-change: transform;
+  animation: atmosphere-silk 46s ease-in-out infinite;
+  -webkit-mask-image:
+    radial-gradient(ellipse at center, #000 28%, transparent 74%),
+    radial-gradient(ellipse 34% 20% at 50% 32%, rgba(0, 0, 0, 0.35), #000);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(ellipse at center, #000 28%, transparent 74%),
+    radial-gradient(ellipse 34% 20% at 50% 32%, rgba(0, 0, 0, 0.35), #000);
+  mask-composite: intersect;
+}
+
+.atmosphere-streak {
+  position: absolute;
+  top: 78%;
+  left: -8%;
+  width: 116%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    rgba(86, 221, 180, 0.7),
+    transparent
+  );
+  box-shadow: 0 0 28px 8px rgba(86, 221, 180, 0.16);
+  opacity: 0.55;
+}
+
+.atmosphere-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 32%,
+    rgba(3, 4, 4, 0.78) 100%
+  );
+}
+
+.atmosphere-spot {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    460px circle at var(--mx, 50vw) var(--my, 16vh),
+    rgba(86, 221, 180, 0.16),
+    transparent 62%
+  );
+}
+
+.atmosphere-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+@keyframes atmosphere-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(7%, 9%, 0) scale(1.08);
+  }
+}
+
+@keyframes atmosphere-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-8%, -6%, 0) scale(1.12);
+  }
+}
+
+@keyframes atmosphere-drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-6%, 8%, 0);
+  }
+}
+
+@keyframes atmosphere-silk {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(7deg) scale(1.08);
+  }
+  50% {
+    transform: translate3d(-2%, 3%, 0) rotate(3deg) scale(1.16);
+  }
+}
+
+/* Touch devices: no pointer to follow, and a still ribbon saves battery. */
+@media (hover: none) {
+  .atmosphere-silk {
+    animation: none;
+  }
+
+  .atmosphere-spot {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .atmosphere-bloom-a,
+  .atmosphere-bloom-b,
+  .atmosphere-bloom-c,
+  .atmosphere-silk {
+    animation: none;
+  }
 }
 
 .get-start-btn {

@@ -6,17 +6,13 @@ import styles from "./styles.module.css";
 const HowItWorks = () => {
   return (
     <Section
-      description={howItsWorksData.description}
       heading={howItsWorksData.heading}
+      description={howItsWorksData.description}
       id={howItsWorksData.id}
     >
       <div className={styles.container}>
-        {howItsWorksData.items.map((item, index) => (
-          <Card
-            key={item.heading + index}
-            className={styles[item.id]}
-            data={item}
-          />
+        {howItsWorksData.items.map((item) => (
+          <Card data={item} className={styles[item.id]} key={item.id} />
         ))}
       </div>
     </Section>

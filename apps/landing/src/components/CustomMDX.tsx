@@ -87,6 +87,24 @@ export const CustomMDX = (props: MDXRemoteProps) => (
         p: (props) => (
           <p {...props} className="text-primary-100 leading-relaxed mb-4" />
         ),
+        strong: (props) => (
+          <strong {...props} className="font-semibold text-white" />
+        ),
+        a: ({ href = "", children, ...anchorProps }) => {
+          const external =
+            href.startsWith("http://") || href.startsWith("https://");
+          return (
+            <a
+              href={href}
+              {...anchorProps}
+              className="text-primary-300 underline decoration-primary-500/40 underline-offset-4 hover:text-primary-100"
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+            >
+              {children}
+            </a>
+          );
+        },
       }}
       options={{
         ...props.options,

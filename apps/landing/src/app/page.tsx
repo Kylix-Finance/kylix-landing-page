@@ -1,28 +1,28 @@
-import HeroWrapper from "./_parts/Hero/HeroWrapper";
-
-import SmartLending from "./_parts/SmartLending";
-import MarketTrends from "./_parts/MarketTrends";
-import SupportedAssetsAndAPY from "./_parts/SupportedAssetsAndAPY";
-import HowItWorks from "./_parts/HowItWorks";
-import SecurityAndAudits from "./_parts/SecurityAndAudits";
-import FeaturedPartners from "./_parts/FeaturedPartners";
+import { ReactElement } from "react";
 import { mergeMetadata } from "@repo/shared";
 import { Metadata } from "next";
+import Hero from "./_parts/Hero/HeroWrapper";
+import FeaturedPartners from "./_parts/FeaturedPartners";
+import HowItWorks from "./_parts/HowItWorks";
+import MarketTrends from "./_parts/MarketTrends";
+import SecurityAndAudits from "./_parts/SecurityAndAudits";
+import SmartLending from "./_parts/SmartLending";
+import SupportedAssetsAndAPY from "./_parts/SupportedAssetsAndAPY";
 import WaitingList from "./_parts/WaitingList";
 
 export const metadata: Metadata = mergeMetadata(
   {
-    title: "Native Lending for Polkadot Hub",
+    title: "Lending on Polkadot Hub",
     description:
-      "Kylix is a lending protocol built natively on Polkadot Hub, managing over-collateralized loans with best-in-class capital efficiency.",
+      "Supply DOT or USDC, borrow against collateral, or bid for liquidated collateral. Kylix records over-collateralized loans on Polkadot Hub.",
   },
   "Kylix Finance"
 );
 
-export default function page() {
+export default function Page(): ReactElement {
   return (
-    <div className="flex flex-col items-center">
-      <HeroWrapper />
+    <div className="flex w-full flex-col items-center">
+      <Hero />
       <FeaturedPartners />
       <SmartLending />
       <MarketTrends />

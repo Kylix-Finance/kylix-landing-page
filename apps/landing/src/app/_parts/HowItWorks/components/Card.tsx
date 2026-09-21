@@ -23,7 +23,7 @@ const Card = ({
       />
       <div className="flex flex-col gap-20 bg-secondary-500 p-7 rounded-3xl">
         <div className="flex flex-col gap-2.5">
-          <h3 className="font-heading font-bold text-4xl leading-[68px] text-white relative z-10">
+          <h3 className="relative z-10 font-heading text-4xl font-bold leading-tight text-white">
             {heading}
           </h3>
           <p className="font-light text-sm leading-5 text-white relative z-10">

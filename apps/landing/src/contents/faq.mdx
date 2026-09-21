@@ -1,72 +1,72 @@
 ---
 title: "FAQ"
-description: "FAQ"
+description: "What Kylix is, which assets it lists, how liquidations and KLX work, and how to reach the team."
 ---
 
-#### 1. What is Kylix?
+## What is Kylix?
 
-- Kylix Finance is a lending protocol built natively on Polkadot Hub, designed to manage over-collateralized loans with best-in-class capital efficiency.
+Kylix is an over-collateralized lending protocol on Polkadot Hub. You can supply, borrow or liquidate. Positions are stored in Hub state.
 
-  Kylix combines self-repaying loans, a polynomial interest rate model, and a queue-based liquidation marketplace to maximize returns for lenders and minimize risk for the protocol. Everything is recorded natively on Polkadot Hub.
+Three mechanisms do the work: self-repaying loans, a polynomial interest curve, and a queue for liquidated collateral.
 
-#### 2. Why build on Polkadot Hub?
+## Why Polkadot Hub?
 
-- Polkadot Hub gives Kylix a secure, scalable foundation with native smart contract support, without the operational overhead of running and securing a separate chain.
+Hub already has the shared security and the native assets. Kylix does not run a separate chain, and it does not ask you to bridge in. The work goes into the lending logic instead of into cross-chain plumbing.
 
-  Building natively on Polkadot Hub lets Kylix focus entirely on capital efficiency and risk management — the core problems the protocol is designed to solve — instead of on cross-chain infrastructure.
+## What problem is this solving?
 
-#### 3. Which problems are you trying to solve?
+A lender today usually meets three limits.
 
-1. The fundamental problem in today's DeFi lending ecosystem isn't the lack of protocols—it's the absence of capital efficiency and intelligent risk management. When a user wants to lend or borrow, they typically face:
+- The interest curve barely pays until the pool is almost fully used, so early deposits earn little.
+- Collateral secures the loan and earns nothing for the borrower.
+- Liquidation destroys value for the borrower and for the pool, because the sale is crude.
 
-   - Static interest rate models that don't respond to market utilization
-   - Idle collateral that generates no yield while securing a loan
-   - Inefficient liquidation processes that destroy value for both borrowers and lenders
-   - Limited options for exotic tokens
-   - Loan pools that lack adequate incentive mechanisms to bootstrap and maintain stable liquidity
+Kylix is aimed at those three. It is not trying to be one more list of markets.
 
-   While existing solutions have made progress, none have successfully combined deep liquidity, optimal capital efficiency, and a seamless user experience into a single, powerful platform.
+## Which assets are supported?
 
-2. Decentralised finance (DeFi) lending platforms face significant challenges such as inefficient collateral liquidation systems and idle capital. In addition, many lending platforms lack adequate incentive mechanisms to bootstrap and maintain stable liquidity.
+The first markets are DOT and USDC, as Hub assets. USDT is not listed yet. An asset is added when there is an oracle and a decision to list it, not because a bridge can move it.
 
-#### 4. Which assets are supported by Kylix?
+## How do liquidations work?
 
-- Kylix initially supports DOT, USDC and USDT natively on Polkadot Hub _(asset list to be confirmed before launch)_. The selection of supported assets is based on business decision, oracle availability and market preference.
+An unhealthy position's collateral is offered in a queue. Bids fill from the smallest discount to the largest, so the pool takes the best price on offer before it takes a worse one.
 
-#### 5. How are liquidations executed?
+If the bids cannot cover the debt, the remainder is swapped across routes with an external market maker. The queue is the first path, not the only path.
 
-- The Kylix marketplace uses a queue-based system to handle liquidations. As assets are liquidated, they are made available for purchase by community members through a bidding process. Bids are filled sequentially, starting with the smallest discount and progressing to the largest. This approach ensures a fair and efficient distribution of assets while maximizing returns for the protocol. In scenarios where bid liquidity in the queues of the liquidation markets is insufficient to cover a liquidation, Kylix seamlessly executes asset swaps over multiple paths through partnerships with external market makers.
+## What is a self-repaying loan?
 
-#### 6. What are self-repaying loans, and how do they benefit users?
+The collateral is moved into a yield-bearing position. The yield is applied to the debt automatically, which is useful when the collateral has a liquid staking market.
 
-- Self-repaying loans are a specialised financial instrument where the deposited collateral is converted into an interest-bearing asset that generates income that is automatically used to cover the debt position. This structure allows borrowers to leverage assets supported by liquid staking platforms to hold a loan with negative interest rates.
+This is not a promise of a negative rate. If the yield is higher than the interest you pay, the debt falls on its own. If it is not, you still owe the difference.
 
-#### 7. What exactly are polynomial interest rates, and why used?
+## What is the polynomial interest rate?
 
-- Kylix Finance has implemented an innovative interest rate model for its lending pools, designed to incentivize liquidity providers even when market utilization rates are low.
+A common curve stays close to zero until utilization is high. Lenders then wait for borrowers who never arrive, because the pool looks empty.
 
-#### 8. How is Kylix legally incorporated?
+Kylix pays a rate while utilization is still low, then steepens the curve as the pool fills. Lenders have a reason to deposit before the pool is rationed. The coefficients are in the protocol, not on this page.
 
-- Kylix Finance is registered as a Foundation in order to fulfill all the regulations requested by Regulators, with the name Kylix Labs LLC, in Saint Vincent and the Grenadines. This legal configuration allows us to issue the Kylix native utility token.
+## How is Kylix incorporated?
 
-#### 9. Will Kylix be audited before launch?
+The registered entity is Kylix Labs LLC, in Saint Vincent and the Grenadines. That entity is what the team uses to issue the KLX utility token.
 
-- Yes, it will be audited and reviewed by several audit companies and we will add PAL (Polkadot Assurance Legion) as an auditor and leverage the security benefits of the vCISO initiative. We will release Kylix only after it has been rigorously audited and privately tested.
+## Will there be an audit before launch?
 
-#### 10. Will a new token be issued for Kylix?
+Yes. The public release waits on an external audit and a private test. The plan includes Polkadot Assurance Legion and the vCISO programme. Reports are published when they exist. They are not implied by this page.
 
-- The development team behind Kylix will issue a new utility token called $KLX, with an initial market cap of 1B and a perpetual inflation mode of 5% PA. Please refer to the tokenomics outlined in paragraph 2.6 of the Kylix whitepaper.
+## Will there be a token?
 
-#### 11. What’s the reason for the native KLX token?
+The team plans to issue a utility token, KLX. Supply, the inflation rate and who receives the tokens are set in section 2.6 of the whitepaper. That document is the source. This page does not restate the figures.
 
-- The protocol is secured by the native KLX token. KLX is primarily a utility token. Validators need KLX to validate and are rewarded in KLX. Value is indirectly returned to validators through protocol fees. In addition, any borrow and liquidation executed on the platform results in the automatic collection of fees, which are collected by the Kylix treasury. A portion of the treasury is used to reward validators and a portion of the KLX tokens are burned, putting deflationary pressure on the network as borrowing and liquidation volume increases.
+## What is KLX for?
 
-#### 12. How do users get the token to use the network?
+KLX is a utility token for the protocol, not the asset that secures Polkadot Hub. Hub secures the chain the contracts run on.
 
-- The Polimec Round offers the exclusive and only opportunity to acquire KLX tokens through a private sale. Participants in this round will gain full access to the Kylix platform, including staking and governance privileges. For those unable to participate in the Polimec auction, the network will provide a public faucet on the platform, offering minimal KLX tokens to cover transaction fees.
+Fees from each borrow and each liquidation go to the Kylix treasury. Part of the treasury pays participants who support the protocol. Part of the KLX collected is burned, so more borrowing reduces the KLX supply. Staking and governance, where they apply, are described in the whitepaper.
 
-#### 13. Can I contact you?
+## How do I get KLX?
 
-- Anytime, please do.
+KLX for the private sale is offered through Polimec. Later distribution, if there is any, is announced on this site and on X. A faucet, if one is offered, covers fees. It is not an allocation.
 
-  Feel free to write an email to info@kylix.finance, to follow us on our X space x.com/KylixFinance or join our Discord server at https://discord.gg/UkRcWaTh5p.
+## How do I contact you?
+
+Email [info@kylix.finance](mailto:info@kylix.finance), follow [x.com/KylixFinance](https://x.com/kylixfinance), or join the Discord at [discord.gg/UkRcWaTh5p](https://discord.gg/UkRcWaTh5p).

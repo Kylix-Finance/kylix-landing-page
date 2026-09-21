@@ -1,27 +1,26 @@
+import { ReactElement } from "react";
 import Section from "~/components/Section";
 import { supportedAssetsData } from "~/data";
 import Card from "./components/Card";
-const SupportedAssetsAndAPY = () => {
+
+export default function SupportedAssetsAndAPY(): ReactElement {
   return (
     <Section
-      description={supportedAssetsData.description}
       heading={supportedAssetsData.heading}
+      description={supportedAssetsData.description}
       id={supportedAssetsData.id}
     >
-      <div>
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 md:grid-rows-2">
-          {supportedAssetsData.items.map((asset, index) => (
+      <ul className="mx-auto grid w-full max-w-3xl grid-cols-2 gap-6">
+        {supportedAssetsData.items.map((asset) => (
+          <li key={asset.symbol}>
             <Card
-              key={asset.alt + index}
-              alt={asset.alt}
+              symbol={asset.symbol}
               isLaunched={asset.isLaunched}
               src={asset.src}
             />
-          ))}
-        </div>
-      </div>
+          </li>
+        ))}
+      </ul>
     </Section>
   );
-};
-
-export default SupportedAssetsAndAPY;
+}

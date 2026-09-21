@@ -1,27 +1,45 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
 import { createContact } from "~/api/contact";
 import Button from "~/components/Button";
 import Section from "~/components/Section";
+import { waitingListSectionId } from "~/data/ids";
+import { isEmailAddress } from "~/utils";
 
-const WaitingList = () => {
+function messageFor(code: string): string {
+  switch (code) {
+    case "invalid_email":
+      return "Enter a valid email address.";
+    case "already_registered":
+      return "That email is already on the list.";
+    case "rate_limited":
+      return "Too many attempts. Wait a minute and try again.";
+    case "unavailable":
+      return "The list is closed right now.";
+    default:
+      return "We couldn't add you. Try again in a minute.";
+  }
+}
+
+export default function WaitingList(): ReactElement {
   const [email, setEmail] = useState("");
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setEmail(value);
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    setEmail(event.target.value);
     setError("");
   };
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
+    if (isPending) return;
 
-    if (!email.trim()) {
-      setError("Email is required.");
+    const nextEmail = email.trim();
+    if (!isEmailAddress(nextEmail)) {
+      setError(messageFor("invalid_email"));
       setIsSuccess(false);
       return;
     }
@@ -31,67 +49,96 @@ const WaitingList = () => {
     setIsSuccess(false);
 
     try {
-      await createContact(email);
+      await createContact(nextEmail);
       setIsSuccess(true);
       setEmail("");
     } catch (err) {
-      if (
-        err ===
-        "Unable to create contact, email is already associated with another Contact"
-      ) {
-        setError("Email already registered!");
-      } else {
-        setError("An unexpected error occurred.");
-      }
+      const code = err instanceof Error ? err.message : "failed";
+      setError(messageFor(code));
       setIsSuccess(false);
     } finally {
       setIsPending(false);
     }
   };
 
+  const noteId = "list-note";
+  const errorId = "list-error";
+
   return (
-    <div className="w-full flex justify-center  lg:max-w-[1900px]">
+    <div className="flex w-full justify-center lg:max-w-[1900px]">
       <Section
-        className="mb-44"
-        contentClassName="py-9 md:py-9 lg:py-9  gap-5  backdrop-blur-md border border-primary-900 rounded-2xl"
-        description="Stay tuned with the latest updates."
         heading={{
           left: "Join",
-          right: "our waiting list",
+          right: "the list",
         }}
-        id="#waiting-list"
+        contentClassName="gap-8 rounded-2xl border border-primary-900 py-9 backdrop-blur-md md:py-12 lg:py-16"
+        className="mb-44"
+        description="One email. We write when a testnet or mainnet date exists."
+        id={waitingListSectionId}
       >
-        <form className="flex flex-col" onSubmit={onSubmit}>
-          <div className="flex items-center justify-center gap-2.5 h-full">
-            <div className="relative w-full h-full  rounded-lg ">
-              <div className="absolute w-full h-full backdrop-blur-xs rounded-lg pointer-events-none" />
+        <form
+          className="flex w-full max-w-xl flex-col"
+          onSubmit={onSubmit}
+          noValidate
+        >
+          <div className="flex h-full items-center justify-center gap-2.5">
+            <div className="relative h-full w-full rounded-lg">
+              <label htmlFor="list-email" className="sr-only">
+                Email address
+              </label>
               <input
-                className="relative h-full w-full px-4 py-2 bg-transparent text-gray-300 placeholder-gray-500 border-none rounded-md  outline-hidden shadow-primary-500 shadow-inner"
-                placeholder="Enter your email address"
+                id="list-email"
+                name="email"
                 type="email"
+                inputMode="email"
+                autoComplete="email"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                required
                 value={email}
+                disabled={isPending}
                 onChange={onChangeHandler}
+                placeholder="Email address"
+                aria-invalid={Boolean(error)}
+                aria-describedby={error ? `${noteId} ${errorId}` : noteId}
+                className="relative h-full w-full rounded-md border border-secondary-400 bg-transparent px-4 py-2 text-secondary-100 outline-hidden placeholder:text-secondary-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:opacity-60"
               />
             </div>
-
-            <Button color="secondary" type="submit">
-              {isPending ? "loading..." : "Join"}
+            <Button
+              color="secondary"
+              type="submit"
+              disabled={isPending}
+              aria-busy={isPending}
+            >
+              {isPending ? "Joining" : "Join"}
             </Button>
           </div>
-          {error && <span className="text-red-500">{error}</span>}
-          {isSuccess && (
-            <span className="text-primary-500">
-              you successfully joined kylix wait list
-            </span>
+          {error && (
+            <p id={errorId} role="alert" className="mt-3 text-sm text-red-400">
+              {error}
+            </p>
           )}
-          <p className="font-normal text-white/40 text-xs leading-5 text-center tracking-wider mt-6">
-            By submitting your email address, you agree to join Kylix wait list
-            and newsletter{" "}
+          {isSuccess && (
+            <p role="status" className="mt-3 text-sm text-primary-300">
+              You are on the list. We will write when there is a date.
+            </p>
+          )}
+          <p
+            id={noteId}
+            className="mt-6 text-center text-xs font-normal leading-5 tracking-wide text-secondary-200"
+          >
+            We use this address for launch notes. Read the{" "}
+            <a
+              href="/privacy"
+              className="text-secondary-100 underline decoration-primary-500/50 underline-offset-4 hover:text-white"
+            >
+              privacy note
+            </a>
+            .
           </p>
         </form>
       </Section>
     </div>
   );
-};
-
-export default WaitingList;
+}

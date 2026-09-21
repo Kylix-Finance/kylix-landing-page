@@ -3,9 +3,8 @@ import "./globals.css";
 import { mergeMetadata } from "@repo/shared";
 import { Metadata } from "next";
 import Footer from "~/components/Footer";
+import BackGround from "~/components/BackGround";
 import Header from "~/components/Header";
-// import { BackGround } from "@repo/ui";
-
 export const metadata: Metadata = mergeMetadata(
   {
     title: {
@@ -13,7 +12,10 @@ export const metadata: Metadata = mergeMetadata(
       template: "%s | Kylix Finance",
     },
     description:
-      "Kylix is a lending protocol built natively on Polkadot Hub, managing over-collateralized loans with best-in-class capital efficiency.",
+      "Over-collateralized lending on Polkadot Hub. Supply, borrow, or liquidate DOT and USDC.",
+    twitter: {
+      site: "@kylixfinance",
+    },
   },
   "Kylix Finance"
 );
@@ -24,13 +26,21 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      className={`${fonts.migha.variable} ${fonts.poppins.variable}`}
       lang="en"
+      className={`${fonts.migha.variable} ${fonts.body.variable}`}
     >
-      <body className="font-body bg-secondary-500 relative w-full h-full flex flex-col">
-        {/* <BackGround /> */}
+      <body className="font-body relative flex h-full w-full flex-col bg-secondary-500 antialiased">
+        <a
+          href="#content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary-500 focus:px-4 focus:py-2 focus:font-medium focus:text-secondary-500"
+        >
+          Skip to content
+        </a>
+        <BackGround />
         <Header />
-        <div className="flex-1 min-h-64 pt-16 flex flex-col">{children}</div>
+        <main id="content" className="flex w-full flex-col">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

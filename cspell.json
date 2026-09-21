@@ -43,6 +43,13 @@
     "process",
     "tanstack",
     "ts-nocheck",
-    "WAITLIST_KEY"
+    "WAITLIST_KEY",
+    "WAITLIST_LIST_ID",
+    "CISO",
+    "Hercle",
+    "Polimec",
+    "collateralized",
+    "kylixfinance",
+    "migha"
   ]
 }

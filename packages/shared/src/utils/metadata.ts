@@ -1,9 +1,33 @@
 import type { Metadata } from "next";
 import { merge } from "lodash-es";
 
+const FALLBACK_METADATA_BASE = "https://www.kylix.finance";
+const PLACEHOLDER_HOSTS = new Set([
+  "google.com",
+  "www.google.com",
+  "google.come",
+  "www.google.come",
+]);
+
+export function resolveMetadataBase(): URL {
+  const raw = process.env.NEXT_PUBLIC_FRONTEND_URL;
+  if (raw) {
+    try {
+      const url = new URL(raw);
+      if (!PLACEHOLDER_HOSTS.has(url.hostname)) return url;
+    } catch {
+      // The configured value is not a URL. Use the public site.
+    }
+  }
+  return new URL(FALLBACK_METADATA_BASE);
+}
+
 const baseMetadata = (siteName = "Kylix"): Metadata => {
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_FRONTEND_URL!),
+    metadataBase: resolveMetadataBase(),
+    alternates: {
+      canonical: "./",
+    },
     openGraph: {
       url: "./",
       siteName,
