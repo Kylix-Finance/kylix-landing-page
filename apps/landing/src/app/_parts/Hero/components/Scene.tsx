@@ -35,7 +35,7 @@ const Scene = ({ scrollYProgress }: Props) => {
         </EffectComposer>
         <Jar scrollYProgress={scrollYProgress} />
 
-        <Environment preset="warehouse" />
+        <Environment files="/hdri/empty_warehouse_01_1k.hdr" />
       </Suspense>
     </Canvas>
   );

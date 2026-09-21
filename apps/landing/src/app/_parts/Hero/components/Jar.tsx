@@ -18,8 +18,11 @@ const rotationRange: inputRange = [
   [-Math.PI / 2.3, -Math.PI / 10, 0, 0],
 ];
 
+// Meshopt-compressed; three-stdlib bundles the decoder, so no CDN is needed.
+const JAR_MODEL = "/jar.glb";
+
 const Jar = ({ scrollYProgress }: Props) => {
-  const { nodes } = useGLTF("/jar.glb");
+  const { nodes } = useGLTF(JAR_MODEL, false, true);
   const groupRef = useRef<THREE.Group>(null);
 
   const rotation = useTransform(scrollYProgress, ...rotationRange);
@@ -84,4 +87,4 @@ const Jar = ({ scrollYProgress }: Props) => {
 
 export default Jar;
 
-useGLTF.preload("/jar.glb");
+useGLTF.preload(JAR_MODEL, false, true);

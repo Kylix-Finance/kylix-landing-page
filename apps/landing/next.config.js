@@ -10,6 +10,7 @@ const withMDXWrapper = withMDX({
 module.exports = withMDXWrapper({
   productionBrowserSourceMaps: false,
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [],
   },
   turbopack: {
