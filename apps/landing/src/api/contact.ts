@@ -1,19 +1,16 @@
 export async function createContact(email: string): Promise<void> {
-  let response: Response;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 12_000);
+  let code = "failed";
   try {
-    response = await fetch("/api/contacts", {
+    const response = await fetch("/api/contacts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
+      signal: controller.signal,
     });
-  } catch {
-    throw new Error("failed");
-  }
+    if (response.ok) return;
 
-  if (response.ok) return;
-
-  let code = "failed";
-  try {
     const data: unknown = await response.json();
     if (
       typeof data === "object" &&
@@ -25,6 +22,8 @@ export async function createContact(email: string): Promise<void> {
     }
   } catch {
     code = "failed";
+  } finally {
+    clearTimeout(timeout);
   }
 
   throw new Error(code);

@@ -38,7 +38,7 @@ export default function RootLayout({
         </a>
         <BackGround />
         <Header />
-        <main id="content" className="flex w-full flex-col">
+        <main id="content" tabIndex={-1} className="flex w-full flex-col">
           {children}
         </main>
         <Footer />

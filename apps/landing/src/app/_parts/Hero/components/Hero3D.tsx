@@ -52,6 +52,12 @@ const Hero3D = () => {
     [0, 0.45, 0.5, 1],
     [0, 0, 0, -200]
   );
+  const firstTextVisibility = useTransform(firstTextOpacity, (opacity) =>
+    opacity > 0.05 ? "visible" : "hidden"
+  );
+  const secondTextVisibility = useTransform(secondTextOpacity, (opacity) =>
+    opacity > 0.05 ? "visible" : "hidden"
+  );
 
   const sSecondTextTranslateY = useSpring(secondTextTranslateY, {
     damping: 60,
@@ -94,6 +100,7 @@ const Hero3D = () => {
           <motion.div
             style={{
               opacity: firstTextOpacity,
+              visibility: firstTextVisibility,
               translateY: firstTextTranslateY,
             }}
             className="absolute top-[20%] flex flex-col gap-2 justify-center items-center z-50"
@@ -124,6 +131,7 @@ const Hero3D = () => {
           <motion.div
             style={{
               opacity: secondTextOpacity,
+              visibility: secondTextVisibility,
               translateY: sSecondTextTranslateY,
             }}
             className="absolute top-[35%] flex flex-col gap-2 justify-center items-center z-40"
