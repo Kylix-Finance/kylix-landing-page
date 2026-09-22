@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
+import { ChangeEvent, FormEvent, ReactElement, useRef, useState } from "react";
 import { createContact } from "~/api/contact";
 import Button from "~/components/Button";
 import Section from "~/components/Section";
@@ -16,7 +16,7 @@ function messageFor(code: string): string {
     case "rate_limited":
       return "Too many attempts. Wait a minute and try again.";
     case "unavailable":
-      return "The list is closed right now.";
+      return "Sign-up is temporarily unavailable. Please try again later.";
     default:
       return "We couldn't add you. Try again in a minute.";
   }
@@ -27,10 +27,12 @@ export default function WaitingList(): ReactElement {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const emailRef = useRef<HTMLInputElement>(null);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setEmail(event.target.value);
     setError("");
+    setIsSuccess(false);
   };
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -41,6 +43,7 @@ export default function WaitingList(): ReactElement {
     if (!isEmailAddress(nextEmail)) {
       setError(messageFor("invalid_email"));
       setIsSuccess(false);
+      emailRef.current?.focus();
       return;
     }
 
@@ -80,6 +83,7 @@ export default function WaitingList(): ReactElement {
           className="flex w-full max-w-xl flex-col"
           onSubmit={onSubmit}
           noValidate
+          aria-busy={isPending}
         >
           <div className="flex h-full items-center justify-center gap-2.5">
             <div className="relative h-full w-full rounded-lg">
@@ -87,6 +91,7 @@ export default function WaitingList(): ReactElement {
                 Email address
               </label>
               <input
+                ref={emailRef}
                 id="list-email"
                 name="email"
                 type="email"
@@ -96,11 +101,12 @@ export default function WaitingList(): ReactElement {
                 autoCorrect="off"
                 spellCheck={false}
                 required
+                maxLength={254}
                 value={email}
                 disabled={isPending}
                 onChange={onChangeHandler}
                 placeholder="Email address"
-                aria-invalid={Boolean(error)}
+                aria-invalid={error === messageFor("invalid_email")}
                 aria-describedby={error ? `${noteId} ${errorId}` : noteId}
                 className="relative h-full w-full rounded-md border border-secondary-400 bg-transparent px-4 py-2 text-secondary-100 outline-hidden placeholder:text-secondary-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:opacity-60"
               />

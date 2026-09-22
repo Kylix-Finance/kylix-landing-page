@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { XIcon, Menu } from "~/assets/svgs";
 import { kylixWordmarkImg } from "~/assets/images";
@@ -16,7 +16,9 @@ export default function Header(): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const wasOpen = useRef(false);
+  const reduceMotion = useReducedMotion();
 
   const toggleMenu = (): void => setIsOpen((prev) => !prev);
   useLockBodyScroll({ isLocked: isOpen });
@@ -29,12 +31,49 @@ export default function Header(): ReactElement {
 
   useEffect(() => {
     if (!isOpen) return;
+    const panel = panelRef.current;
+    if (!panel) return;
+    const background = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        'body > header, body > main, body > footer, body > a[href="#content"]'
+      )
+    ).map((element) => ({ element, inert: element.inert }));
+    panel.inert = false;
+    for (const { element } of background) element.inert = true;
+    closeRef.current?.focus();
+
     const onKeyDown = (event: KeyboardEvent): void => {
       if (event.key === "Escape") setIsOpen(false);
+      if (event.key !== "Tab") return;
+      const controls = panel.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled])"
+      );
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      panel.inert = true;
+      for (const { element, inert } of background) element.inert = inert;
+    };
   }, [isOpen]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = (): void => {
+      if (desktop.matches) setIsOpen(false);
+    };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
 
   const renderedNavItems = navItems.map(({ label, link }) => (
     <Link
@@ -69,7 +108,7 @@ export default function Header(): ReactElement {
           <button
             ref={menuRef}
             type="button"
-            className="rounded-md text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 lg:hidden"
             onClick={toggleMenu}
             aria-label="Open menu"
             aria-expanded={isOpen}
@@ -82,13 +121,16 @@ export default function Header(): ReactElement {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.nav
+          <motion.div
+            ref={panelRef}
             id="mobile-nav"
-            aria-label="Mobile"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
             initial={{ opacity: 0, y: "-100%" }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "-100%" }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
+            transition={{ duration: reduceMotion ? 0 : 0.4, ease: "easeInOut" }}
             className="fixed left-0 top-0 z-30 flex h-dvh w-screen flex-col bg-secondary-900/70 text-white lg:hidden"
           >
             <div className="flex h-full w-full flex-col gap-6 bg-secondary-500 p-6">
@@ -99,14 +141,16 @@ export default function Header(): ReactElement {
                   type="button"
                   onClick={toggleMenu}
                   aria-label="Close menu"
-                  className="rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+                  className="flex h-11 w-11 items-center justify-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                 >
                   <XIcon className="h-6 w-6" />
                 </button>
               </div>
-              <div className="flex flex-col gap-4">{renderedNavItems}</div>
+              <nav aria-label="Mobile" className="flex flex-col gap-4">
+                {renderedNavItems}
+              </nav>
             </div>
-          </motion.nav>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
