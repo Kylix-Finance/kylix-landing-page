@@ -92,6 +92,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     const response = await fetch("https://api.brevo.com/v3/contacts", {
       method: "POST",
+      signal: AbortSignal.timeout(8_000),
       headers: {
         accept: "application/json",
         "content-type": "application/json",
