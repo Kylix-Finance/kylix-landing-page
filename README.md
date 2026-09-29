@@ -1,4 +1,22 @@
-# Kylix Frontend
+# Obsolete: Kylix Landing Page Monorepo
+
+This repository, previously named `kylix-finance-frontend`, is retained for
+historical source and review evidence. New work belongs in:
+
+- [kylix-landing](https://github.com/Kylix-Finance/kylix-landing): public marketing website.
+- [kylix-platform](https://github.com/Kylix-Finance/kylix-platform): lending dashboard
+  and frontend integration.
+
+The standalone landing retains its newer redesign. Historical
+[PR #22](https://github.com/Kylix-Finance/kylix-landing-page/pull/22) is preserved;
+remaining response-body timeout and hidden-hero-focus work is tracked in the
+[successor landing issue #3](https://github.com/Kylix-Finance/kylix-landing/issues/3).
+Its original test report remains dated.
+
+This notice does not claim that the old PR was merged. Retain this repository and
+its branches when archiving so historical commits and review links remain usable.
+
+## Historical README
 
 ## Overview
 
